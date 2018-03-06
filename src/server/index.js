@@ -1,18 +1,40 @@
-const { connect } = require('./db');
-require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const path = require('path');
+const morgan = require('morgan');
+const env = process.env.NODE_ENV || 'development';
+const app = express();
+const User = require('./models').User;
 
-const dbConfig = {
-  port: process.env.DB_PORT || 5432,
-  db: process.env.DB_DATABASE || 'postgres',
-  username: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres'
-};
+const { schema } = require('./schema');
 
-connect(dbConfig)
-  .then(() => {
-    require('./app.js');
-  })
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
+// Logger
+app.use(morgan('tiny'));
+
+// Parse JSON Body
+app.use(bodyParser.json());
+
+if (env === 'production') {
+  app.use(express.static(path.resolve(__dirname, '../../build')));
+}
+
+app.use('/api/graphql', graphqlExpress({ schema }));
+app.use('/api/graphiql', graphiqlExpress({ endpointURL: '/api/graphql' }));
+
+app.get('/api/hello', async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      firstname: 'John'
+    }
   });
+  res.json({
+    message: 'Hello world',
+    env: process.env.NODE_ENV,
+    user
+  });
+});
+
+app.listen(3100, () => {
+  console.log('Express is listening on port http://localhost:3100');
+});

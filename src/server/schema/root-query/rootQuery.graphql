@@ -1,0 +1,4 @@
+type RootQuery {
+  user(firstname: String): User
+  users: [User]
+}
