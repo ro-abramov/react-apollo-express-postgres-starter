@@ -9,7 +9,7 @@ function requireText(p) {
 
 const rootQuery = requireText('./schema/root-query/rootQuery.graphql');
 const rootMutation = requireText('./schema/root-mutation/root-mutation.graphql');
-const user = requireText('./schema/user/User.graphql');
+const user = requireText('./schema/user/user.graphql');
 const todo = requireText('./schema/todo/todo.graphql');
 
 const SchemaDefinitions = `

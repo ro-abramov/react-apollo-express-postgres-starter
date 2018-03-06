@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Todos from './Todos';
+import Todos from './components/todos';
 import Users from './components/Users';
 import './App.css';
 

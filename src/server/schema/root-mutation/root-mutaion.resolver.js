@@ -1,5 +1,12 @@
 const { User, todo } = require('../../models');
 
+const delay = ms =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+
 const rootMutationResolvers = {
   async addUser(rootObj, { firstname, lastname }) {
     try {
@@ -24,8 +31,9 @@ const rootMutationResolvers = {
   },
   async toggleTodo(rootObj, { todoId }) {
     try {
-      const t = await todo.update(todoId);
+      const t = await todo.findById(todoId);
       await t.update({ completed: !t.completed });
+      await delay(1200);
       return t;
     } catch (error) {
       return error;
