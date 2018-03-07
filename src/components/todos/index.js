@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import TodoItem from './TodoItem';
 import TodoInput from './TodoInput';
+import TodoStatistic from './TodoStatistic';
 import { userTodosQuery } from './queries';
 
 const TodosContainer = props => {
@@ -12,6 +13,7 @@ const TodosContainer = props => {
     <div>
       <TodoInput user={props.user} />
       <div>{todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}</div>
+      <TodoStatistic user={props.user} />
     </div>
   );
 };
