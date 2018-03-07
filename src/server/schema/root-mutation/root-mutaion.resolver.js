@@ -1,4 +1,5 @@
 const { User, todo } = require('../../models');
+const { pubsub } = require('../subscriptions/subscription.resolver');
 
 const delay = ms =>
   new Promise((resolve, reject) => {
@@ -19,13 +20,13 @@ const rootMutationResolvers = {
 
   async addTodo(rootObj, { userId, title }) {
     try {
-      const t = await todo.create({
+      const todosAdded = await todo.create({
         title,
         userId,
         completed: false
       });
-      await delay(1200);
-      return t;
+      pubsub.publish('todosAdded', { todosAdded, userId });
+      return todosAdded;
     } catch (e) {
       return e;
     }

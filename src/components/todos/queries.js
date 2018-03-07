@@ -28,3 +28,13 @@ export const addTodoQuery = gql`
     }
   }
 `;
+
+export const todosSubscription = gql`
+  subscription todosAdded($userId: Int!) {
+    todosAdded(userId: $userId) {
+      id
+      title
+      completed
+    }
+  }
+`;

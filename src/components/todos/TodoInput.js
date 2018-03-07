@@ -21,14 +21,17 @@ class TodoInput extends Component {
           user: this.props.user.id,
           title
         },
-        optimisticResponse: {
-          addTodo: {
-            id: Math.round(Math.random() * -10000),
-            title,
-            completed: false,
-            __typename: 'Todo'
-          }
-        },
+        // Note that there is a bug in apollo v2.x
+        // It's better not to use OptimisticResponse with Subscriptions
+        //
+        // optimisticResponse: {
+        //   addTodo: {
+        //     id: Math.round(Math.random() * -10000),
+        //     title,
+        //     completed: false,
+        //     __typename: 'Todo'
+        //   }
+        // },
         // As an example you may refetch preveios queries
         // Pros: it's up to Apollo how to validate it's own cache
         // Cons: Additional network request
@@ -41,14 +44,18 @@ class TodoInput extends Component {
         //     }
         //   }
         // ]
-        update: (store, { data: { addTodo } }) => {
+        update: (store, x) => {
+          const { data: { addTodo } } = x;
           // Read data from the cache
           const data = store.readQuery({
             query: userTodosQuery,
             variables: { userId: this.props.user.id }
           });
-          // Update todos
-          data.todos.push(addTodo);
+          // Update todo
+          const isAlreadyPresent = data.todos.find(todo => todo.id === addTodo.id);
+          if (!isAlreadyPresent) {
+            data.todos.push(addTodo);
+          }
           // Write todos
           store.writeQuery({
             query: userTodosQuery,

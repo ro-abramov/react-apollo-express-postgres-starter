@@ -9,6 +9,7 @@ function requireText(p) {
 
 const rootQuery = requireText('./schema/root-query/rootQuery.graphql');
 const rootMutation = requireText('./schema/root-mutation/root-mutation.graphql');
+const subscriptions = requireText('./schema/subscriptions/subscription.graphql');
 const user = requireText('./schema/user/user.graphql');
 const todo = requireText('./schema/todo/todo.graphql');
 
@@ -16,10 +17,11 @@ const SchemaDefinitions = `
   schema {
     query: RootQuery
     mutation: RootMutation
+    subscription: Subscription
   }
 `;
 
-const typeDefs = [SchemaDefinitions, rootQuery, rootMutation, user, todo];
+const typeDefs = [SchemaDefinitions, rootQuery, subscriptions, rootMutation, user, todo];
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
