@@ -1,5 +1,0 @@
-type RootMutation {
-  addUser(firstname: String!, lastname: String!): User
-  addTodo(userId: Int!, title: String): Todo
-  toggleTodo(todoId: Int!): Todo
-}
