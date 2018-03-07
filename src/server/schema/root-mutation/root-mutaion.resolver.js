@@ -24,6 +24,7 @@ const rootMutationResolvers = {
         userId,
         completed: false
       });
+      await delay(1200);
       return t;
     } catch (e) {
       return e;
@@ -31,9 +32,9 @@ const rootMutationResolvers = {
   },
   async toggleTodo(rootObj, { todoId }) {
     try {
+      await delay(1200);
       const t = await todo.findById(todoId);
       await t.update({ completed: !t.completed });
-      await delay(1200);
       return t;
     } catch (error) {
       return error;

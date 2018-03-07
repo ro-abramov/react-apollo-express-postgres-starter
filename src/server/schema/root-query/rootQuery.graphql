@@ -1,4 +1,5 @@
 type RootQuery {
   user(firstname: String): User
   users: [User]
+  todos(userId: Int): [Todo]
 }

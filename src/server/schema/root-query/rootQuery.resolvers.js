@@ -6,6 +6,11 @@ const rootQueryResolvers = {
   },
   users() {
     return User.all();
+  },
+  async todos(rootObj, { userId }) {
+    const user = await User.findById(userId);
+    const todos = user.getTodos();
+    return todos;
   }
 };
 

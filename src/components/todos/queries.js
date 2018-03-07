@@ -1,16 +1,11 @@
 import gql from 'graphql-tag';
 
 export const userTodosQuery = gql`
-  query getQueryForUser($userFirstName: String!) {
-    user(firstname: $userFirstName) {
+  query getQueryForUser($userId: Int!) {
+    todos(userId: $userId) {
       id
-      firstname
-      lastname
-      todos {
-        id
-        title
-        completed
-      }
+      title
+      completed
     }
   }
 `;

@@ -7,15 +7,23 @@ const TodoItem = ({ todo, mutate }) => {
     mutate({
       variables: {
         todoId: todo.id
+      },
+      optimisticResponse: {
+        toggleTodo: {
+          ...todo,
+          completed: !todo.completed,
+          __typename: 'Todo'
+        }
       }
     });
   };
   return (
-    <div onClick={handleClick}>
-      <h5>
-        {todo.title}
-        <small> {todo.completed ? 'completed' : 'to do'}</small>
-      </h5>
+    <div>
+      <label>
+        <input type="checkbox" checked={todo.completed} onChange={handleClick} />
+        <span className={todo.completed ? 'TodoCompletedLabel' : 'TodoIncompletedLabel'}>{todo.title}</span>
+        {todo.id < 0 && <div>Adding .... </div>}
+      </label>
     </div>
   );
 };

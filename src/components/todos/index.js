@@ -5,13 +5,13 @@ import TodoInput from './TodoInput';
 import { userTodosQuery } from './queries';
 
 const TodosContainer = props => {
-  const { loading, error, user } = props.data;
+  const { loading, error, todos } = props.data;
   if (loading) return 'loading ...';
   if (error) return 'error';
   return (
     <div>
-      <TodoInput user={user} />
-      <div>{user.todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}</div>
+      <TodoInput user={props.user} />
+      <div>{todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}</div>
     </div>
   );
 };
@@ -19,7 +19,7 @@ const TodosContainer = props => {
 const enhancer = graphql(userTodosQuery, {
   options: props => ({
     variables: {
-      userFirstName: props.user.firstname
+      userId: props.user.id
     }
   })
 });
