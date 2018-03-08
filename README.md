@@ -13,3 +13,41 @@ This is a starter kit for developing web apps.
 ### Database
 
 * [Postgres](https://www.postgresql.org/)
+
+## Docker
+### Requirements
+* Docker;
+* Docker-Compose ([CLI](https://docs.docker.com/compose/reference/overview/)).
+### Start containers
+#### Development
+```sh
+docker-compose up --build
+```
+#### Production
+```sh
+docker-compose -f production-compose.yml build
+docker-compose -f production-compose.yml up -d
+```
+...or run `production.sh`.
+### Stop containers
+```sh
+docker-compose down -v
+```
+### URLs/Services
+#### Development
+* localhost:3000 - create-react-app;
+* localhost:3100 - express server;
+* localhost:5432 - postgres;
+* localhost:4040 - adminer.
+#### Production
+* localhost - application (pm2-runtime);
+* localhost:5432 - postgres;
+* localhost/adminer - adminer.
+
+### Database
+(adminer parameters)
+* System - PostgreSQL;
+* Server - db;
+* Username - root;
+* Password - toor;
+* Database - db.

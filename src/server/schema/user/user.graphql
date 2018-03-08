@@ -1,6 +1,0 @@
-type User {
-  id: Int
-  firstname: String
-  lastname: String
-  todos: [Todo]
-}

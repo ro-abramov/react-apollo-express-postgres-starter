@@ -1,0 +1,42 @@
+version: '3.2'
+services:
+  app:
+    container_name: app
+    restart: always
+    build: ./app
+    volumes:
+      - ./app:/usr/src/app:rw
+    links:
+      - db
+    ports:
+      - 3100:3100
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: db
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 4040:8080
+  nginx:
+    image: nginx
+    restart: always
+    container_name: nginx
+    build: ./nginx
+    volumes:
+      - ./app:/usr/share/nginx:rw
+    links:
+        - app:app
+        - adminer:adminer
+    ports:
+      - "80:80"
+      - "443:443"

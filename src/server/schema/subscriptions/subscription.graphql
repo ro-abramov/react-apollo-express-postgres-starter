@@ -1,3 +1,0 @@
-type Subscription {
-  todosAdded(userId: Int!): Todo
-}
