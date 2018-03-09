@@ -1,6 +1,12 @@
 import React from 'react';
+import styled from 'react-emotion';
 import { graphql } from 'react-apollo';
 import { toggleTodo } from './queries';
+
+const StyledLabel = styled.span`
+  color: ${props => (props.crossOut ? '#999' : props.theme.textColor)};
+  text-decoration: ${props => (props.crossOut ? 'line-through' : 'none')};
+`;
 
 const TodoItem = ({ todo, mutate }) => {
   const handleClick = e => {
@@ -21,7 +27,7 @@ const TodoItem = ({ todo, mutate }) => {
     <div>
       <label>
         <input type="checkbox" checked={todo.completed} onChange={handleClick} />
-        <span className={todo.completed ? 'TodoCompletedLabel' : 'TodoIncompletedLabel'}>{todo.title}</span>
+        <StyledLabel crossOut={todo.completed}>{todo.title}</StyledLabel>
         {todo.id < 0 && <div>Adding .... </div>}
       </label>
     </div>

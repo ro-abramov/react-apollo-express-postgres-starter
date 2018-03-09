@@ -5,6 +5,7 @@ This is a starter kit for developing web apps.
 ### Front-end stack
 
 * [Create react app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md)
+* [Emotion](https://github.com/emotion-js/emotion) (CSS-in-JS)
 
 ### Back-end stack
 

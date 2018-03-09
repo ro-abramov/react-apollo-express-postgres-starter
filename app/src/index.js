@@ -1,14 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { ApolloProvider } from 'react-apollo';
+import { injectGlobal } from 'react-emotion';
+import { ThemeProvider } from 'emotion-theming';
 import App from './App';
 import { client } from './client';
 import registerServiceWorker from './registerServiceWorker';
-import { ApolloProvider } from 'react-apollo';
+import { theme } from './styles';
+import { FullScreenWrapper } from './components/styled';
+
+injectGlobal`
+  html, body, #root {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+`;
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <ThemeProvider theme={theme}>
+        <FullScreenWrapper>
+          <App />
+        </FullScreenWrapper>
+      </ThemeProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
