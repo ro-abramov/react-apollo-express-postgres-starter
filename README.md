@@ -25,10 +25,12 @@ docker-compose up --build
 ```
 #### Production
 ```sh
-docker-compose -f production-compose.yml build
-docker-compose -f production-compose.yml up -d
+cd ./app
+npm run build
+
+cd ..
+docker-compose -f production-compose.yml up -d --build
 ```
-...or run `production.sh`.
 ### Stop containers
 ```sh
 docker-compose down -v

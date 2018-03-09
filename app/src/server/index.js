@@ -26,10 +26,12 @@ if (env === 'production') {
 }
 
 app.use('/api/graphql', graphqlExpress({ schema }));
-app.use(
-  '/api/graphiql',
-  graphiqlExpress({ endpointURL: '/api/graphql', subscriptionsEndpoint: 'ws:localhost:3100/subscriptions' })
-);
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    '/api/graphiql',
+    graphiqlExpress({ endpointURL: '/api/graphql', subscriptionsEndpoint: 'ws:localhost:3100/subscriptions' })
+  );
+}
 
 app.get('/api/hello', async (req, res) => {
   const user = await User.findOne({
