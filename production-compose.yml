@@ -18,8 +18,6 @@ services:
       POSTGRES_PASSWORD: toor
       POSTGRES_DB: db
       PGDATA: /var/lib/postgresql/data
-    volumes:
-      - ./db/data:/var/lib/postgresql/data
     ports:
       - 5432:5432
   adminer:
