@@ -1,6 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import styled from 'react-emotion';
 import { graphql } from 'react-apollo';
+import { Placeholder } from './styled';
 
 const query = gql`
   query {
@@ -12,24 +14,29 @@ const query = gql`
   }
 `;
 
-function UserItem({ user, onSelectUser }) {
+function UserItem({ className, user, onSelectUser }) {
   return (
-    <div onClick={() => onSelectUser(user)}>
+    <div className={className} onClick={() => onSelectUser(user)}>
       {user.firstname} {user.lastname}
     </div>
   );
 }
 
+const StyledUser = styled(UserItem)`
+  color: ${props => props.theme.textColor};
+  text-align: center;
+`;
+
 const Users = ({ data: { loading, users, error }, onSelectUser }) => {
   if (loading) {
-    return 'loading ...';
+    return <Placeholder>loading ...</Placeholder>;
   }
   if (error) {
-    return 'Error';
+    return <Placeholder danger>error</Placeholder>;
   }
   return (
     <React.Fragment>
-      {users.map(user => <UserItem key={user.id} user={user} onSelectUser={onSelectUser} />)}
+      {users.map(user => <StyledUser key={user.id} user={user} onSelectUser={onSelectUser} />)}
     </React.Fragment>
   );
 };

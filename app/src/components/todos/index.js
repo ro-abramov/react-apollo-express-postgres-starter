@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import TodoItem from './TodoItem';
 import TodoInput from './TodoInput';
 import TodoStatistic from './TodoStatistic';
+import { Placeholder } from '../styled';
 import { userTodosQuery, todosSubscription } from './queries';
 
 class TodosContainer extends React.Component {
@@ -12,8 +13,15 @@ class TodosContainer extends React.Component {
 
   render() {
     const { loading, error, todos } = this.props.data;
-    if (loading) return 'loading ...';
-    if (error) return 'error';
+
+    if (loading) {
+      return <Placeholder>loading ...</Placeholder>
+    }
+
+    if (error) {
+      return <Placeholder danger>error</Placeholder>
+    }
+
     return (
       <div>
         <TodoInput user={this.props.user} />
