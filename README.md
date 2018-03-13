@@ -25,11 +25,6 @@ This is a starter kit for developing web apps.
 docker-compose up --build
 ```
 #### Production
-```sh
-cd ./app
-npm run build
-
-cd ..
 docker-compose -f production-compose.yml up -d --build
 ```
 ### Stop containers

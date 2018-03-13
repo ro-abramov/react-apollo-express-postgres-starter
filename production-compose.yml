@@ -10,6 +10,9 @@ services:
       - db
     ports:
       - 3100:3100
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:5432", "-s", "--", "npm", "run", "production"]
   db:
     image: postgres
     restart: always
