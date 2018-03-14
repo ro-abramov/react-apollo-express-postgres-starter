@@ -39,13 +39,7 @@ const Users = ({ data: { loading, users, error }, onSelectUser }) => {
     }
     return (
         <React.Fragment>
-            {users.map(user => (
-                <StyledUser
-                    key={user.id}
-                    user={user}
-                    onSelectUser={onSelectUser}
-                />
-            ))}
+            {users.map(user => <StyledUser key={user.id} user={user} onSelectUser={onSelectUser} />)}
         </React.Fragment>
     );
 };

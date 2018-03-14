@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 function requireText(p) {
-  return fs.readFileSync(path.resolve(__dirname, p), 'utf-8');
+    return fs.readFileSync(path.resolve(__dirname, p), 'utf-8');
 }
 
 const rootQuery = requireText('./schema/root-query/rootQuery.graphql');
@@ -26,5 +26,5 @@ const typeDefs = [SchemaDefinitions, rootQuery, subscriptions, rootMutation, use
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 module.exports = {
-  schema
+    schema
 };

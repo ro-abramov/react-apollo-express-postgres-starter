@@ -53,9 +53,7 @@ class TodoInput extends Component {
                         variables: { userId: this.props.user.id }
                     });
                     // Update todo
-                    const isAlreadyPresent = data.todos.find(
-                        todo => todo.id === addTodo.id
-                    );
+                    const isAlreadyPresent = data.todos.find(todo => todo.id === addTodo.id);
                     if (!isAlreadyPresent) {
                         data.todos.push(addTodo);
                     }
@@ -78,11 +76,7 @@ class TodoInput extends Component {
     render() {
         return (
             <div>
-                <Input
-                    value={this.state.value}
-                    onChange={this.handleInputChange}
-                    style={{ width: '500px' }}
-                />
+                <Input value={this.state.value} onChange={this.handleInputChange} style={{ width: '500px' }} />
                 <Button type="primary" onClick={this.addTodo}>
                     Add Todo
                 </Button>

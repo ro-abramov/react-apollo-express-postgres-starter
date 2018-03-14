@@ -19,19 +19,11 @@ class App extends Component {
                     <div className="header">
                         <h1>RAEP Starter Kit</h1>
                     </div>
-                    <Route
-                        path="/"
-                        exact
-                        render={() => (
-                            <Users onSelectUser={this.setSelectedUser} />
-                        )}
-                    />
+                    <Route path="/" exact render={() => <Users onSelectUser={this.setSelectedUser} />} />
                     <Route
                         path="/user/:userId"
                         render={props => {
-                            return this.state.selectedUser ? (
-                                <Todos user={this.state.selectedUser} />
-                            ) : null;
+                            return this.state.selectedUser ? <Todos user={this.state.selectedUser} /> : null;
                         }}
                     />
                 </div>
