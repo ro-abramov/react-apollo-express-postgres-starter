@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var todo = sequelize.define(
+    var Todo = sequelize.define(
         'todo',
         {
             title: DataTypes.STRING,
@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         {}
     );
-    todo.associate = function(models) {
-        todo.belongsTo(models.User);
+    Todo.associate = function(models) {
+        Todo.belongsTo(models.User);
     };
-    return todo;
+    return Todo;
 };

@@ -1,4 +1,4 @@
-const { User, todo } = require('../../models');
+const { User, Todo } = require('../../models');
 const { pubsub } = require('../subscriptions/subscription.resolver');
 
 const delay = ms =>
@@ -20,7 +20,7 @@ const rootMutationResolvers = {
 
     async addTodo(rootObj, { userId, title }) {
         try {
-            const todosAdded = await todo.create({
+            const todosAdded = await Todo.create({
                 title,
                 userId,
                 completed: false
@@ -34,7 +34,7 @@ const rootMutationResolvers = {
     async toggleTodo(rootObj, { todoId }) {
         try {
             await delay(1200);
-            const t = await todo.findById(todoId);
+            const t = await Todo.findById(todoId);
             await t.update({ completed: !t.completed });
             return t;
         } catch (error) {

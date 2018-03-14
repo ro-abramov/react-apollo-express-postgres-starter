@@ -43,7 +43,7 @@
     },
     "scripts": {
         "develop:client": "react-app-rewired start",
-        "develop:server": "npm-run-all migrate server:develop",
+        "develop:server": "npm-run-all migrate seed server:develop",
         "develop": "cross-env NODE_ENV=development npm-run-all --parallel develop:*",
         "prebuild": "rimraf ./build",
         "build": "react-app-rewired build",
@@ -55,6 +55,7 @@
         "test": "react-app-rewired test --env=jsdom",
         "eject": "react-app-rewired eject",
         "migrate": "sequelize db:migrate",
+        "seed": "sequelize db:seed:all",
         "sequelize": "sequelize"
     },
     "devDependencies": {
