@@ -22,41 +22,44 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
 if (env === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../../build')));
+    app.use(express.static(path.resolve(__dirname, '../../build')));
 }
 
 app.use('/api/graphql', graphqlExpress({ schema }));
 if (process.env.NODE_ENV !== 'production') {
-  app.use(
-    '/api/graphiql',
-    graphiqlExpress({ endpointURL: '/api/graphql', subscriptionsEndpoint: 'ws:localhost:3100/subscriptions' })
-  );
+    app.use(
+        '/api/graphiql',
+        graphiqlExpress({
+            endpointURL: '/api/graphql',
+            subscriptionsEndpoint: 'ws:localhost:3100/subscriptions'
+        })
+    );
 }
 
 app.get('/api/hello', async (req, res) => {
-  const user = await User.findOne({
-    where: {
-      firstname: 'John'
-    }
-  });
-  res.json({
-    message: 'Hello world',
-    env: process.env.NODE_ENV,
-    user
-  });
+    const user = await User.findOne({
+        where: {
+            firstname: 'John'
+        }
+    });
+    res.json({
+        message: 'Hello world',
+        env: process.env.NODE_ENV,
+        user
+    });
 });
 
 ws.listen(3100, () => {
-  console.log('Express is listening on port http://localhost:3100');
-  new SubscriptionServer(
-    {
-      execute,
-      subscribe,
-      schema
-    },
-    {
-      server: ws,
-      path: '/subscriptions'
-    }
-  );
+    console.log('Express is listening on port http://localhost:3100');
+    new SubscriptionServer(
+        {
+            execute,
+            subscribe,
+            schema
+        },
+        {
+            server: ws,
+            path: '/subscriptions'
+        }
+    );
 });

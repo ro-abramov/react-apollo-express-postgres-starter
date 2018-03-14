@@ -1,25 +1,43 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Todos from './components/todos';
 import Users from './components/Users';
 import styled from 'react-emotion';
-import {media} from './styles';
+import { media } from './styles';
 
 class App extends Component {
-  state = {
-    selectedUser: null
-  };
+    state = {
+        selectedUser: null
+    };
 
-  setSelectedUser = user => this.setState({selectedUser: user});
+    setSelectedUser = user => this.setState({ selectedUser: user });
 
-  render() {
-    return (
-      <div className={this.props.className}>
-        <h1>RAEP Starter Kit</h1>
-        <Users onSelectUser={this.setSelectedUser} />
-        {this.state.selectedUser && <Todos user={this.state.selectedUser} />}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <BrowserRouter>
+                <div className={this.props.className}>
+                    <div className="header">
+                        <h1>RAEP Starter Kit</h1>
+                    </div>
+                    <Route
+                        path="/"
+                        exact
+                        render={() => (
+                            <Users onSelectUser={this.setSelectedUser} />
+                        )}
+                    />
+                    <Route
+                        path="/user/:userId"
+                        render={props => {
+                            return this.state.selectedUser ? (
+                                <Todos user={this.state.selectedUser} />
+                            ) : null;
+                        }}
+                    />
+                </div>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default styled(App)`

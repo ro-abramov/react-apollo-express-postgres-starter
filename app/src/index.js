@@ -8,6 +8,7 @@ import { client } from './client';
 import registerServiceWorker from './registerServiceWorker';
 import { theme } from './styles';
 import { FullScreenWrapper } from './components/styled';
+import 'antd/dist/antd.css';
 
 injectGlobal`
   html, body, #root {
@@ -19,13 +20,13 @@ injectGlobal`
 `;
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
-        <FullScreenWrapper>
-          <App />
-        </FullScreenWrapper>
-      </ThemeProvider>
-  </ApolloProvider>,
-  document.getElementById('root')
+    <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+            <FullScreenWrapper>
+                <App />
+            </FullScreenWrapper>
+        </ThemeProvider>
+    </ApolloProvider>,
+    document.getElementById('root')
 );
 registerServiceWorker();

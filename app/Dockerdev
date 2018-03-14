@@ -1,11 +1,20 @@
 FROM node:carbon
 
+# set working directory
+RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
-COPY . .
 
-RUN npm install
-RUN npm install cross-env -g
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /usr/src/app/package.json
+COPY package-lock.json /usr/src/app/package-lock.json
+RUN npm install --silent
 
 EXPOSE 3000
 EXPOSE 3100
+EXPOSE 35729
+
+# start app
 CMD ["npm", "run", "develop"]
